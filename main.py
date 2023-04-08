@@ -10,13 +10,26 @@ places = ['Холл', 'Столовая', 'Амфитеатр', 'Перегов�
 language_data = {}
 
 
+@bot.message_handler(commands=['lang'])
+def set_lang(message):
+    user = message.chat.id
+    if user not in language_data.keys():
+        language_data[user] = 'en'
+    else:
+        if language_data[user] == 'ru':
+            language_data[user] = 'en'
+        else:
+            language_data[user] = 'ru'
+    bot.send_message(message.chat.id, f'Язык успешно сменён на {language_data[user]}')
+    
+
 @bot.message_handler(commands=['restart', "help", 'start', "↩ Назад"])
 def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("💬 Меню")
-    markup.add(btn1)
+    btn = types.KeyboardButton("💬 Меню")
+    markup.add(btn)
     bot.send_message(message.chat.id,
-                     text="Приветствую {0.first_name}, я бот-гит по Новгородской технической школе. \nПусть я пока только начинаю свою работу, но уже могу немало.".format(
+                     text="Приветствую {0.first_name}, я бот-гид по Новгородской технической школе. \nПусть я пока только начинаю свою работу, но уже могу немало.".format(
                          message.from_user), reply_markup=markup)
 
 
@@ -49,7 +62,7 @@ def autors(message):
     btn = types.KeyboardButton("В меню")
     markup.add(btn)
     bot.send_message(message.chat.id,
-                     text="инфа о  нас, там ккуар кодик какой нибудь и всякое такое, там теги на нас".format(
+                     text="инфа о нас, там ккуар кодик какой нибудь и всякое такое, там теги на нас".format(
                          message.from_user), reply_markup=markup)
 
 
@@ -146,11 +159,10 @@ def nav(message):
 @bot.message_handler(func=lambda message: message.text == "Как добраться до НТШ?")
 def how_to_go_to_ntsh(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn = types.KeyboardButton("В меню")
-    markup.add(btn)
-    bot.send_message(message.chat.id,
-                     text="[хз че тут].".format(
-                         message.from_user), reply_markup=markup)
+    btn1 = types.KeyboardButton("Предоставить местоположение", request_location=True)
+    btn2 = types.KeyboardButton("В меню")
+    markup.add(btn1, btn2)
+    bot.send_message(message.chat.id, 'Я могу построить Вам маршрут до НТШ!', reply_markup=markup)
 
 
 @bot.message_handler(func=lambda message: message.text == "Навигатор по НТШ")
@@ -235,6 +247,14 @@ def callback_inline(call):
     bot.delete_message(call.message.chat.id, call.message.id)
     place_to, place_from = call.data[4:].split('_')
     bot.send_message(call.message.chat.id, text=f"Гена на маршрут из {place_from} в {place_to}")
+
+
+@bot.message_handler(content_types=['location'])
+def handle_loc(message):
+    a_cord = message.location.longitude
+    b_cord = message.location.latitude
+    u = f'https://yandex.ru/maps/?mode=routes&rtext={b_cord}%2C{a_cord}~58.538431%2C31.278384'
+    bot.send_message(message.chat.id, f'Ваш маршурт до НТШ:\n{u}')
 
 
 print('Started')
