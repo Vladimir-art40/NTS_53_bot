@@ -6,7 +6,7 @@ from telebot import types
 bot = telebot.TeleBot(config.token)
 
 
-places = ['A', 'B', 'C']
+places = ['Холл', 'Столовая', 'Амфитеатр', 'Переговорные', 'Галерея', 'Кабинеты']
 language_data = {}
 
 
@@ -32,6 +32,11 @@ def about_startup_type(message):
 бизнеса в России, разберут кейсы и поделятся практическими советами, которые будут полезны
 для продвижения креативно-технологических проектов.
 Не упустите шанс узнать о CreativeTECH-трендах первыми!
+Расписание:
+9:00-10:00 Регистрация
+9:30-10:00 Кофе-брейк
+10:00-10:15 Открытие
+10:15-18:00 Основной познавательный трек, Прикладной предпринимательский трек, Выставка\n
 Регистрируйтесь прямо сейчас. https://startup-tour.ru/"""
     bot.send_message(message.chat.id,
                      text=text.format(
@@ -130,7 +135,7 @@ def about_ntsh(message):
 def nav(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = types.KeyboardButton("Как добраться до НТШ?")
-    btn1 = types.KeyboardButton("Навигатор по зданию НТШ")
+    btn1 = types.KeyboardButton("Навигатор по НТШ")
     btn2 = types.KeyboardButton("В меню")
     markup.add(btn, btn1, btn2)
     bot.send_message(message.chat.id,
@@ -153,7 +158,7 @@ def echo_message(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn1 = types.KeyboardButton("Расположение входов")
     btn2 = types.KeyboardButton("Планы корпусов")
-    btn3 = types.KeyboardButton("Места проведения")
+    btn3 = types.KeyboardButton("Карта Стартап Тура")
     btn4 = types.KeyboardButton("Как дойти...")
     btn5 = types.KeyboardButton("В меню")
     markup.add(btn1, btn2, btn3, btn4, btn5)
@@ -194,12 +199,12 @@ def echo_message(message):
     bot.send_photo(message.chat.id, open('resources/corp2.jpg', 'rb'), "План II корпуса НТШ", reply_markup=markup)
 
 
-@bot.message_handler(func=lambda message: message.text == "Места проведения Стартап Тура")
+@bot.message_handler(func=lambda message: message.text == "Карта Стартап Тура")
 def echo_message(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = types.KeyboardButton("В меню")
     markup.add(btn)
-    bot.send_photo(message.chat.id, open('resources/places.jpg', 'rb'), "Места проведения ", reply_markup=markup)
+    bot.send_photo(message.chat.id, open('resources/places.jpg', 'rb'), "Карта Стартап Тура", reply_markup=markup)
 
 
 @bot.message_handler(func=lambda message: message.text == "Как дойти...")
@@ -220,6 +225,7 @@ def callback_inline(call):
         if place == place_from:
             continue
         markup.add(types.InlineKeyboardButton(place, callback_data='apf_' + place + '_' + place_from))
+    markup.add(types.InlineKeyboardButton('Ближайший туалет', callback_data='apf_' + 'Ближайший туалет' + '_' + place_from))
     bot.delete_message(call.message.chat.id, call.message.id)
     bot.send_message(call.message.chat.id, text=f"Из {place_from}... \nКуда вам надо?", reply_markup=markup)
 
@@ -232,4 +238,4 @@ def callback_inline(call):
 
 
 print('Started')
-bot.infinity_polling()
+bot.infinity_polling() 
