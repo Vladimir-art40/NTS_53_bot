@@ -21,7 +21,7 @@ def set_lang(message):
         else:
             language_data[user] = 'ru'
     bot.send_message(message.chat.id, f'Язык успешно сменён на {language_data[user]}')
-    
+
 
 @bot.message_handler(commands=['restart', "help", 'start', "↩ Назад"])
 def start(message):
@@ -61,8 +61,9 @@ def autors(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = types.KeyboardButton("В меню")
     markup.add(btn)
+    text = 'Мы небольшая команда разработчиков из Великого Новгорода под названем "Случается". Связь с нами - t.me/+geI14xdOI-RiYjhi'
     bot.send_message(message.chat.id,
-                     text="инфа о нас, там ккуар кодик какой нибудь и всякое такое, там теги на нас".format(
+                     text=text.format(
                          message.from_user), reply_markup=markup)
 
 
@@ -76,7 +77,7 @@ def return1(message):
     btn4 = types.KeyboardButton("🙍‍🙍 ‍Авторы бота")
     markup.add(btn0, btn, btn1, btn2, btn4)
     bot.send_message(message.chat.id,
-                     text="Что нужно вам?".format(
+                     text="Что нужно тебе, странник?".format(
                          message.from_user), reply_markup=markup)
 
 
@@ -94,13 +95,16 @@ def about_ntsh(message):
                          message.from_user), reply_markup=markup)
 
 
-@bot.message_handler(func=lambda message: message.text == "Что такое НШТ")
+@bot.message_handler(func=lambda message: message.text == "Что такое НТШ")
 def about_ntsh(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = types.KeyboardButton("В меню")
     markup.add(btn)
+    text='НТШ это - Инновационная образовательная площадка эпохи цифровой экономики. Ведущие компании региона, лаборатории ' \
+         'мирового уровня и студенты НТШ вместе решают задачи новой промышленной революции в сфере ключевых технологий.' \
+         '\nВ школе ведется переподготовка кадров для высокотехнологичных предприятий России и создаются новые модели бизнеса.'
     bot.send_message(message.chat.id,
-                     text="текст о нтш, его создании и т.д.".format(
+                     text=text.format(
                          message.from_user), reply_markup=markup)
     
 
@@ -114,13 +118,31 @@ def photos_ntsh(message):
                          message.from_user), reply_markup=markup)
     
 
-@bot.message_handler(func=lambda message: message.text == "Отделы НТШ")
+@bot.message_handler(func=lambda message: message.text == "Лабаратории НТШ")
 def otdels_ntsh(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = types.KeyboardButton("В меню")
     markup.add(btn)
+    text = """В НТШ 16 различных лабораторий:
+1. Медицинская информатика (https://novtechschool.ru/lab6)
+2. Нейротехнологии (https://novtechschool.ru/lab11)
+3. Биобанк, геномный инжиринг (https://novtechschool.ru/lab3)
+4. Промышленный дизайн (https://novtechschool.ru/lab13)
+5. Мехатроника и робототехника (https://novtechschool.ru/lab5)
+6. Автономный транспорт (https://novtechschool.ru/lab10)
+7. BIM-технологии (https://novtechschool.ru/lab15)
+8. Интеллектуальная электроника (https://novtechschool.ru/lab4)
+9. Новые материалы (https://novtechschool.ru/lab12)
+10. Микро- и нанотехнологии (https://novtechschool.ru/lab7)
+11. Неразрушающий контроль (https://novtechschool.ru/lab2)
+12. Виртуальная и дополненная реальность (AR/VR) (https://novtechschool.ru/lab8)
+13. Кибер-безопасность (https://novtechschool.ru/lab14)
+14. Техническое зрение (https://novtechschool.ru/lab16)
+15. Прототипирование (https://novtechschool.ru/lab17)
+16. Искусственный интеллект (https://novtechschool.ru/lab19)
+Заинтересовала какая-то лаборатория? Нажми на ее номер в списке для получения подробностей."""
     bot.send_message(message.chat.id,
-                     text="отделы нтш сс фоточками или без  и т.д.".format(
+                     text=text.format(
                          message.from_user), reply_markup=markup)
     
 
@@ -130,17 +152,23 @@ def history_of_ntsh(message):
     btn = types.KeyboardButton("В меню")
     markup.add(btn)
     bot.send_message(message.chat.id,
-                     text="История НТШ текст или ссыль".format(
+                     text='18 сентября 2019 года Владимиру Путину был представлен проект, а уже спустя два месяца, 13 ноября, был '
+                          'заложен первый камень. Более подробно вы можете увидеть по нажатию кнопки) (https://novtechschool.ru/chronicle)'.format(
                          message.from_user), reply_markup=markup)
 
 
-@bot.message_handler(func=lambda message: message.text == "О ИНТЦ Валдай")
+@bot.message_handler(func=lambda message: message.text == "Об ИНТЦ Валдай")
 def about_ntsh(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     btn = types.KeyboardButton("В меню")
+    text = """Направления научно-технологической деятельности, осуществляемой на территории интеллектуального научно-технического центра   
+Разработка и создание новых, в том числе портативных, источников энергии
+Разработка биомедицинских клеточных технологий
+Разработка и создание мобильной сети связи 5-го поколения
+Разработка и создание интернета вещей (приборы, устройства, системы, программные платформы)"""
     markup.add(btn)
     bot.send_message(message.chat.id,
-                     text="текст о ИНТЦ валдай,  и т.д.".format(
+                     text=text.format(
                          message.from_user), reply_markup=markup)
 
 
