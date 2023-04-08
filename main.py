@@ -1,21 +1,151 @@
 import telebot
 import config
-from config import places
 from telebot import types
 
 
 bot = telebot.TeleBot(config.token)
 
 
+places = ['A', 'B', 'C']
 language_data = {}
 
 
-@bot.message_handler(commands=['start'])
-def echo_message(message):
+@bot.message_handler(commands=['restart', "help", 'start', "↩ Назад"])
+def start(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("Навигатор по НТШ")
+    btn1 = types.KeyboardButton("💬 Меню")
     markup.add(btn1)
-    bot.send_message(message.chat.id, text="Поехали", reply_markup=markup)
+    bot.send_message(message.chat.id,
+                     text="Приветствую {0.first_name}, я бот-гит по Новгородской технической школе. \nПусть я пока только начинаю свою работу, но уже могу немало.".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "❓ О Стартап Type")
+def about_startup_type(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    text = """Startup Tour 2023 в Великом Новгороде!
+28 апреля на площадке Новгородской технической школы пройдет Startup Tour 2023 —
+масштабная конференция Фонда «Сколково», посвященная технологиям в креативных индустриях.
+Эксперты обсудят развитие ключевых творческих индустрий региона и перспективы CreativeTECH-
+бизнеса в России, разберут кейсы и поделятся практическими советами, которые будут полезны
+для продвижения креативно-технологических проектов.
+Не упустите шанс узнать о CreativeTECH-трендах первыми!
+[Регистрируйтесь прямо сейчас.] (https://startup-tour.ru/)"""
+    bot.send_message(message.chat.id,
+                     text=text.format(
+                         message.from_user), reply_markup=markup)
+    
+
+@bot.message_handler(func=lambda message: message.text == "🙍‍🙍 ‍Авторы бота")
+def autors(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="инфа о  нас, там ккуар кодик какой нибудь и всякое такое, там теги на нас".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "На главную" or message.text == "💬 Меню")
+def return1(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn0 = types.KeyboardButton("❓ О Стартап Type")
+    btn = types.KeyboardButton("О НТШ")
+    btn1 = types.KeyboardButton("Навигатор")
+    btn2 = types.KeyboardButton("О ИНТЦ Валдай")
+    btn4 = types.KeyboardButton("🙍‍🙍 ‍Авторы бота")
+    markup.add(btn0, btn, btn1, btn2, btn4)
+    bot.send_message(message.chat.id,
+                     text="Что нужно вам?".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "О НТШ")
+def about_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("Что такое НШТ")
+    btn1 = types.KeyboardButton("Фотографии")
+    btn2 = types.KeyboardButton("Отделы НТШ")
+    btn3 = types.KeyboardButton("История НТШ")
+    btn4 = types.KeyboardButton("На главную")
+    markup.add(btn, btn1, btn2, btn3,btn4)
+    bot.send_message(message.chat.id,
+                     text="Что конкретно вам интересно?".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "Что такое НШТ")
+def about_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="текст о нтш, его создании и т.д.".format(
+                         message.from_user), reply_markup=markup)
+    
+
+@bot.message_handler(func=lambda message: message.text == "Фотографии")
+def photos_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="фоточки".format(
+                         message.from_user), reply_markup=markup)
+    
+
+@bot.message_handler(func=lambda message: message.text == "Отделы НТШ")
+def otdels_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="отделы нтш сс фоточками или без  и т.д.".format(
+                         message.from_user), reply_markup=markup)
+    
+
+@bot.message_handler(func=lambda message: message.text == "История НТШ")
+def history_of_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="История НТШ текст или ссыль".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "О ИНТЦ Валдай")
+def about_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="текст о ИНТЦ валдай,  и т.д.".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "Навигатор")
+def nav(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("Как добраться до НТШ?")
+    btn1 = types.KeyboardButton("Навигатор по зданию НТШ")
+    btn2 = types.KeyboardButton("На главную")
+    markup.add(btn, btn1, btn2)
+    bot.send_message(message.chat.id,
+                     text="Где вы в данный момент".format(
+                         message.from_user), reply_markup=markup)
+
+
+@bot.message_handler(func=lambda message: message.text == "Как добраться до НТШ?")
+def how_to_go_to_ntsh(message):
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn = types.KeyboardButton("На главную")
+    markup.add(btn)
+    bot.send_message(message.chat.id,
+                     text="[хз че тут].".format(
+                         message.from_user), reply_markup=markup)
 
 
 @bot.message_handler(func=lambda message: message.text == "Навигатор по НТШ")
