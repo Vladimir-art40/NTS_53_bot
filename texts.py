@@ -10,13 +10,23 @@ menu_en = 'To menu'
 main_menu_ru = ['❓ О Стартап Type', 'О НТШ', 'Навигатор', 'Об ИНТЦ Валдай', '🙍‍🙍 ‍Авторы бота']
 main_menu_en = ['❓ About Startup Tour', 'About NTS', 'Navigator', 'About INTC Valdai', '🙍‍🙍 Bot`s autors']
 
+hi_nav_menu_ru = ['Как добраться до НТШ?', 'Навигатор по НТШ', 'В меню']
+hi_nav_menu_en = ['How to get to the NTS?', 'NTS Navigator', 'To menu']
+
 nav_menu_ru = ['Расположение входов', 'Планы корпусов', 'Карта Стартап Тура', 'Как дойти...', 'В меню']
 nav_menu_en = ['Location of entrances', 'Building plans', 'Startup Tour map', 'How to get there...', 'To menu']
 
 ants_menu_ru = ['Что такое НТШ', 'Фотографии', 'Лабаратории НТШ', 'История НТШ', 'В меню']
 ants_menu_en = ['What is NTS', 'Photos', 'NTS laboratories', 'History of the NTS', 'To menu']
 
-hello_ru = 'Приветствую {0.first_name}, я бот-гид по Новгородской технической школе. \nПусть я пока только начинаю свою работу, но уже могу немало.'
+ask_location_menu_ru = ['Предоставить местоположение', 'В меню']
+ask_location_menu_en = ['Provide location', 'To menu']
+
+select_build_menu_ru = ['I Корпус', 'II Корпус', 'В меню']
+select_build_menu_en = ['I Build', 'II Build', 'To menu']
+
+hello_ru = 'Приветствую {0.first_name}, я бот-гид по Новгородской технической школе. \nПусть я пока только начинаю свою работу, но уже могу немало.\n' \
+        '/lang to switch to English'
 hello_en = 'Hello {0.first_name}, I am a bot guide to the Novgorod Technical School. \nEven though I`m just starting my work, but I can already do a lot.'
 
 about_startup_ru =  """Startup Tour 2023 в Великом Новгороде!
@@ -117,8 +127,26 @@ Development of biomedical cell technologies
 Development and creation of a 5th generation mobile communication network
 Development and creation of the Internet of Things (devices, devices, systems, software platforms)"""
 
+hi_nuv_text_ru = 'Что Вам нужно?'
+hi_nuv_text_en = 'What do you need?'
+
 nav_nts_ru = 'Я могу построить Вам маршрут до НТШ!'
 nav_nts_en = 'I can plot you a route to the NTS!'
 
 nav_of_nts_text_ru = 'Что Вам нужно?'
 nav_of_nts_text_en = 'What do you need?'
+
+select_build_menu_text_ru = 'Выберите корпус'
+select_build_menu_text_en = 'Choose build'
+
+first_build_plane_ru = 'План I корпуса НТШ'
+first_build_plane_en = 'Plan of the I build of the NTS'
+
+second_build_plane_ru = 'План II корпуса НТШ'
+second_build_plane_en = 'Plan of the II build of the NTS'
+
+map_startup_tour_ru = 'Карта Стартап Тура'
+map_startup_tour_en = 'Startup Tour map'
+
+path_to_nts_ru = 'Ваш маршурт до НТШ'
+path_to_nts_en = 'Your route to the NTS'

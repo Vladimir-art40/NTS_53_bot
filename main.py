@@ -76,23 +76,23 @@ def about_ntsh(message):
 @bot.message_handler(func=lambda message: message.text == main_menu_ru[2] 
                      or message.text == main_menu_en[2])
 def nav(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn = types.KeyboardButton("Как добраться до НТШ?")
-    btn1 = types.KeyboardButton("Навигатор по НТШ")
-    btn2 = types.KeyboardButton("В меню")
-    markup.add(btn, btn1, btn2)
-    bot.send_message(message.chat.id,
-                     text="Где вы в данный момент".format(
-                         message.from_user), reply_markup=markup)
+    if language_data[message.chat.id] == 'ru':
+        bot.send_message(message.chat.id, hi_nuv_text_ru, 
+                         reply_markup=hi_nav_markup('ru'))
+    else:
+        bot.send_message(message.chat.id, hi_nuv_text_ru, 
+                         reply_markup=hi_nav_markup('en'))
     
     
 @bot.message_handler(func=lambda message: message.text == main_menu_ru[3] 
                      or message.text == main_menu_en[3])
 def about_ntsh(message):
     if language_data[message.chat.id] == 'ru':
-        bot.send_message(message.chat.id, about_intc_ru, reply_markup=btm_markup('ru'))
+        bot.send_message(message.chat.id, about_intc_ru, 
+                         reply_markup=btm_markup('ru'))
     else:
-        bot.send_message(message.chat.id, about_intc_en, reply_markup=btm_markup('en'))
+        bot.send_message(message.chat.id, about_intc_en, 
+                         reply_markup=btm_markup('en'))
 
 
 @bot.message_handler(func=lambda message: message.text == main_menu_ru[4] 
@@ -162,20 +162,22 @@ def history_of_ntsh(message):
         bot.send_message(message.chat.id, history_of_nts_en, 
                          reply_markup=btm_markup('en'))
 
-### Part for make path to nts
+### Part for make request of user`s location for path to nts
 
-@bot.message_handler(func=lambda message: message.text == "Как добраться до НТШ?")
-def how_to_go_to_ntsh(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("Предоставить местоположение", request_location=True)
-    btn2 = types.KeyboardButton("В меню")
-    markup.add(btn1, btn2)
-    bot.send_message(message.chat.id, 'Я могу построить Вам маршрут до НТШ!', 
-                     reply_markup=markup)
+@bot.message_handler(func=lambda message: message.text == hi_nav_menu_ru[0]
+                     or message.text == hi_nav_menu_en[0])
+def ask_location(message):
+    if language_data[message.chat.id] == 'ru':
+        bot.send_message(message.chat.id, nav_nts_ru, 
+                        reply_markup=ask_loc_markup('ru'))
+    else:
+        bot.send_message(message.chat.id, nav_nts_en, 
+                        reply_markup=ask_loc_markup('en'))
 
 ### Nav body
 
-@bot.message_handler(func=lambda message: message.text == "Навигатор по НТШ")
+@bot.message_handler(func=lambda message: message.text == hi_nav_menu_ru[1]
+                     or message.text == hi_nav_menu_en[1])
 def echo_message(message):
     if language_data[message.chat.id] == 'ru':
         bot.send_message(message.chat.id, nav_of_nts_text_ru, 
@@ -189,39 +191,56 @@ def echo_message(message):
 @bot.message_handler(func=lambda message: message.text == nav_menu_ru[0] 
                      or message.text == nav_menu_en[0])
 def echo_message(message):
-    bot.send_photo(message.chat.id, open('resources/inputs.jpg', 'rb'), 'Расположение входов в НТШ', 
-                   reply_markup=btm_markup('ru'))
+    if language_data[message.chat.id] == 'ru':
+        bot.send_photo(message.chat.id, open('resources/inputs.jpg', 'rb'), nav_menu_ru[0], 
+                    reply_markup=btm_markup('ru'))
+    else:
+        bot.send_photo(message.chat.id, open('resources/inputs.jpg', 'rb'), nav_menu_en[0], 
+                    reply_markup=btm_markup('en'))
 
 
 @bot.message_handler(func=lambda message: message.text == nav_menu_ru[1] 
                      or message.text == nav_menu_en[1])
 def echo_message(message):
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    btn1 = types.KeyboardButton("I Корпус")
-    btn2 = types.KeyboardButton("II Корпус")
-    btn3 = types.KeyboardButton("В меню")
-    markup.add(btn1, btn2, btn3)
-    bot.send_message(message.chat.id, text="Выберите корпус", 
-                     reply_markup=markup)
+    if language_data[message.chat.id] == 'ru':
+        bot.send_message(message.chat.id, select_build_menu_text_ru, 
+                        reply_markup=select_build_markup('ru'))
+    else:
+        bot.send_message(message.chat.id, select_build_menu_text_en, 
+                        reply_markup=select_build_markup('en'))
 
 
-@bot.message_handler(func=lambda message: message.text == "I Корпус")
+@bot.message_handler(func=lambda message: message.text == select_build_menu_ru[0]
+                     or message.text == select_build_menu_en[0])
 def echo_message(message):
-    bot.send_photo(message.chat.id, open('resources/corp1.jpg', 'rb'), "План I корпуса НТШ", 
-                   reply_markup=btm_markup('ru'))
+    if language_data[message.chat.id] == 'ru':
+        bot.send_photo(message.chat.id, open('resources/corp1.jpg', 'rb'), first_build_plane_ru, 
+                    reply_markup=btm_markup('ru'))
+    else:
+        bot.send_photo(message.chat.id, open('resources/corp1.jpg', 'rb'), first_build_plane_en, 
+                    reply_markup=btm_markup('en'))
 
 
-@bot.message_handler(func=lambda message: message.text == "II Корпус")
+@bot.message_handler(func=lambda message: message.text == select_build_menu_ru[1]
+                     or message.text == select_build_menu_en[1])
 def echo_message(message):
-    bot.send_photo(message.chat.id, open('resources/corp2.jpg', 'rb'), "План II корпуса НТШ", 
-                   reply_markup=btm_markup('ru'))
+    if language_data[message.chat.id] == 'ru':
+        bot.send_photo(message.chat.id, open('resources/corp2.jpg', 'rb'), second_build_plane_ru, 
+                    reply_markup=btm_markup('ru'))
+    else:
+        bot.send_photo(message.chat.id, open('resources/corp2.jpg', 'rb'), second_build_plane_en, 
+                    reply_markup=btm_markup('en'))
 
 
 @bot.message_handler(func=lambda message: message.text == nav_menu_ru[2] 
                      or message.text == nav_menu_en[2])
 def echo_message(message):
-    bot.send_photo(message.chat.id, open('resources/places.jpg', 'rb'), "Карта Стартап Тура", 
-                   reply_markup=btm_markup('ru'))
+    if language_data[message.chat.id] == 'ru':
+        bot.send_photo(message.chat.id, open('resources/places.jpg', 'rb'), map_startup_tour_ru, 
+                    reply_markup=btm_markup('ru'))
+    else:
+        bot.send_photo(message.chat.id, open('resources/places.jpg', 'rb'), map_startup_tour_en, 
+                    reply_markup=btm_markup('en'))
 
 
 @bot.message_handler(func=lambda message: message.text == nav_menu_ru[3] 
@@ -262,7 +281,10 @@ def handle_loc(message):
     a_cord = message.location.longitude
     b_cord = message.location.latitude
     u = f'https://yandex.ru/maps/?mode=routes&rtext={b_cord}%2C{a_cord}~58.538431%2C31.278384'
-    bot.send_message(message.chat.id, f'Ваш маршурт до НТШ:\n{u}')
+    if language_data[message.chat.id] == 'ru':
+        bot.send_message(message.chat.id, f'{path_to_nts_ru}:\n{u}')
+    else:
+        bot.send_message(message.chat.id, f'{path_to_nts_en}:\n{u}')
 
 
 print('Started')
