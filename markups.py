@@ -10,7 +10,9 @@ def btm_markup(lang):
         markup.add(types.KeyboardButton(menu_en))
     return markup
 
-
+"""
+    Функция для генерации всех KeyboardButton в сообщениях
+"""
 def gen_markup(data):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     for p in data:
